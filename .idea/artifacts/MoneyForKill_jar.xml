@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MoneyForKill:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MoneyForKill_jar</output-path>
+    <root id="archive" name="MoneyForKill.jar">
+      <element id="module-output" name="MoneyForKill_main" />
+    </root>
+  </artifact>
+</component>
