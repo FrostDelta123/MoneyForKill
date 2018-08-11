@@ -11,10 +11,14 @@ import org.spongepowered.api.config.DefaultConfig;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.service.permission.PermissionService;
+import org.spongepowered.api.service.permission.Subject;
+import org.spongepowered.api.service.permission.SubjectCollection;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 
 @Plugin(
         id = "moneyforkill",
@@ -42,11 +46,13 @@ public class Loader {
     @Inject
     protected Logger logger;
 
+    private static Optional<Subject> groups;
 
     @Listener
     public void onServerStart(GameStartedServerEvent e) throws IOException {
 
-
+        Optional<PermissionService> permissionService = Sponge.getServiceManager().provide(PermissionService.class);
+        groups = permissionService.get().getGroupSubjects().getSubject("group");
 
         try {
             if (!this.dConfig.exists()) {
@@ -78,6 +84,10 @@ public class Loader {
 
     public static ConfigurationLoader<CommentedConfigurationNode> getConfigManager() {
         return configurationManager;
+    }
+
+    public static Optional<Subject> getGroups(){
+        return groups;
     }
 
     public static void main(String args[]){
